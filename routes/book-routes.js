@@ -1,8 +1,9 @@
 const axios = require("axios");
 const express = require("express");
 const router = express.Router();
-//const Book = require("../models/book-model");
+const Book = require("../models/book-model");
 const parseString = require("xml2js").parseString;
+
 
 // const goodreadsAPI = axios.create({
 //  baseURL: `https://www.goodreads.com/search.xml?key=${process.env.GOODREADS_API_KEY}`,
