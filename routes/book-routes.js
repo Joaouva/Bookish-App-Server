@@ -2,8 +2,8 @@ const axios = require("axios");
 const express = require("express");
 const router = express.Router();
 const Book = require("../models/book-model");
+const User = require("../models/user-model");
 const parseString = require("xml2js").parseString;
-
 
 // const goodreadsAPI = axios.create({
 //  baseURL: `https://www.goodreads.com/search.xml?key=${process.env.GOODREADS_API_KEY}`,
@@ -56,4 +56,18 @@ router.get("/books/:isbn", (req, res) => {
     });
 });
 */
+
+//:id is the is of the book
+router.get("/books/:id/associate", (req, res) => {
+  const loggedUserId = req.user._id;
+  const bookId = req.param.id;
+  User.findByIdAndUpdate(loggedUserId, { $push: { books: bookId } }).then(
+    () => {
+      res.json({
+        message: `Book with id ${bookId} was added to user ${loggedUserId}`,
+      });
+    }
+  );
+});
+
 module.exports = router;
