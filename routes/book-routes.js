@@ -70,4 +70,17 @@ router.get("/books/:id/associate", (req, res) => {
   );
 });
 
+// route para todos os livros da NOSSA base de dados
+router.get("/books/db/allbooks", (req, res) => {
+  Book.find().then((allBooksFromDb) => {
+    res.json(allBooksFromDb);
+  });
+});
+
+router.get("/books/db/allbookshops", (req, res) => {
+  User.find().then((allBooksshopsFromDb) => {
+    res.json(allBooksshopsFromDb);
+  });
+});
+
 module.exports = router;
