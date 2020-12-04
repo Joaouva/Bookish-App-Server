@@ -78,7 +78,7 @@ router.get("/books/db/allbooks", (req, res) => {
 });
 
 router.get("/books/db/allbookshops", (req, res) => {
-  User.find().then((allBooksshopsFromDb) => {
+  User.find({ books: { $exists: true } }).then((allBooksshopsFromDb) => {
     res.json(allBooksshopsFromDb);
   });
 });
