@@ -12,7 +12,7 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    books: [{ type: Schema.Types.ObjectId, ref: "Book" }],
+    books: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
   },
   {
     timestamps: true,

@@ -24,7 +24,7 @@ router.get("/books/:isbn", (req, res) => {
         const author = book.authors[0].author[0].name[0];
         const publisher = book.publisher[0];
         const isbn = book.isbn13[0];
-        const image = book.image_url[0];
+        const image = book.image_url[0].replace("SX98", "SX500");
         const published = book.publication_year[0];
         const language = book.language_code[0];
 
@@ -58,16 +58,24 @@ router.get("/books/:isbn", (req, res) => {
 */
 
 //:id is the is of the book
-router.get("/books/:id/associate", (req, res) => {
+router.post("/books/associate", (req, res) => {
   const loggedUserId = req.user._id;
-  const bookId = req.param.id;
-  User.findByIdAndUpdate(loggedUserId, { $push: { books: bookId } }).then(
-    () => {
+  const { isbn, price, grade } = req.body;
+  console.log("looggedUSerId", loggedUserId);
+
+  Book.create({
+    ISBN: isbn,
+    price,
+    grade,
+  }).then((response) => {
+    User.findByIdAndUpdate(loggedUserId, {
+      $push: { books: response._id },
+    }).then(() => {
       res.json({
-        message: `Book with id ${bookId} was added to user ${loggedUserId}`,
+        message: `Book with id ${response._id} was added to user ${loggedUserId}`,
       });
-    }
-  );
+    });
+  });
 });
 
 // route para todos os livros da NOSSA base de dados
@@ -82,6 +90,5 @@ router.get("/books/db/allbookshops", (req, res) => {
     res.json(allBooksshopsFromDb);
   });
 });
-
 
 module.exports = router;
