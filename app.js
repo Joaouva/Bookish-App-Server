@@ -15,7 +15,10 @@ const session = require("express-session");
 require("./configs/passport");
 
 mongoose
-  .connect("mongodb://localhost/bookini-backend", { useNewUrlParser: true })
+  .connect(process.env.MONGODB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
   .then((x) => {
     console.log(
       `Connected to Mongo! Database name: "${x.connections[0].name}"`
