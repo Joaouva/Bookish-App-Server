@@ -105,8 +105,9 @@ router.get("/books/db/allbookshops", (req, res) => {
 router.get("/books/db/allbookshops/:id", (req, res) => {
   const userId = req.params.id;
 
-  User.findById(userId).then((userDetails) => {
-
+  User.findById(userId)
+  .populate('books')
+  .then((userDetails) => {
     res.json(userDetails);
   });
 });
