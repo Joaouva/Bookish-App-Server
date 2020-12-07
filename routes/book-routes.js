@@ -42,6 +42,13 @@ router.get("/books/:isbn", (req, res) => {
     });
 });
 
+router.get("/books/:isbn/details", (req, res) => {
+  const isbn = req.params.isbn;
+  Book.find({ ISBN: isbn }).then((book) => {
+    res.json(book);
+  });
+});
+
 // get book by title
 /* router.get("/books/:title", (req, res) => {
   let searchTitle = req.params.title;
@@ -60,7 +67,19 @@ router.get("/books/:isbn", (req, res) => {
 //:id is the is of the book
 router.post("/books/associate", (req, res) => {
   const loggedUserId = req.user._id;
-  const { isbn, price, grade, title, description, author, publisher, published, image, language, isUsed } = req.body;
+  const {
+    isbn,
+    price,
+    grade,
+    title,
+    description,
+    author,
+    publisher,
+    published,
+    image,
+    language,
+    isUsed,
+  } = req.body;
   console.log("looggedUSerId", loggedUserId);
 
   Book.create({
@@ -73,7 +92,7 @@ router.post("/books/associate", (req, res) => {
     published: published,
     image: image,
     language: language,
-    isUsed
+    isUsed,
   }).then((response) => {
     User.findByIdAndUpdate(loggedUserId, {
       $push: { books: response._id },
@@ -106,10 +125,10 @@ router.get("/books/db/allbookshops/:id", (req, res) => {
   const userId = req.params.id;
 
   User.findById(userId)
-  .populate('books')
-  .then((userDetails) => {
-    res.json(userDetails);
-  });
+    .populate("books")
+    .then((userDetails) => {
+      res.json(userDetails);
+    });
 });
 
 module.exports = router;
