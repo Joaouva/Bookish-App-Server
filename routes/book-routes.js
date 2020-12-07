@@ -60,13 +60,20 @@ router.get("/books/:isbn", (req, res) => {
 //:id is the is of the book
 router.post("/books/associate", (req, res) => {
   const loggedUserId = req.user._id;
-  const { isbn, price, grade } = req.body;
+  const { isbn, price, grade, title, description, author, publisher, published, image, language, isUsed } = req.body;
   console.log("looggedUSerId", loggedUserId);
 
   Book.create({
     ISBN: isbn,
     price,
-    grade,
+    title: title,
+    decription: description,
+    author: author,
+    publisher: publisher,
+    published: published,
+    image: image,
+    language: language,
+    isUsed
   }).then((response) => {
     User.findByIdAndUpdate(loggedUserId, {
       $push: { books: response._id },
