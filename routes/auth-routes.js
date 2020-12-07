@@ -6,8 +6,13 @@ const User = require("../models/user-model");
 
 router.post("/signup", (req, res) => {
   console.log("in signup");
-  const username = req.body.username;
-  const password = req.body.password;
+  // const username = req.body.user.username;
+  // const password = req.body.user.password;
+  // const name = req.body.user.name;
+  // const isCompany = req.body.user.isCompany;
+  // const city = req.body.user.city;
+  const { username, password, city, isCompany, name} = req.body.user;
+  // console.log('this is the request body', req.body )
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
     return;
@@ -28,6 +33,9 @@ router.post("/signup", (req, res) => {
     const aNewUser = new User({
       username: username,
       password: hashPass,
+      city,
+      isCompany,
+      name,
     });
     aNewUser.save((err) => {
       if (err) {

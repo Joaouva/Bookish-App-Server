@@ -96,17 +96,12 @@ router.get("/books/db/allbookshops", (req, res) => {
 });
 
 router.get("/books/db/allbookshops/:id", (req, res) => {
-  const { username, city, books } = req.body;
-  User.find({
-    username,
-    city,
-    books,
-  }).then((response) => {
-    res.json(UserDetails);
+  const userId = req.params.id;
+
+  User.findById(userId).then((userDetails) => {
+
+    res.json(userDetails);
   });
 });
-
-
-
 
 module.exports = router;

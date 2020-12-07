@@ -4,10 +4,16 @@ const Schema = mongoose.Schema;
 const bookSchema = new Schema({
   ISBN: Number,
   price: Number,
-  grade: {
-    type: String,
-    enum: ["A", "B", "C"],
+  isUsed: {
+    type: Boolean,
+    default: false,
   },
+  title: String,
+  image: String,
+  description: String,
+  publisher: String,
+  published: String,
+  author: String,
 });
 
 const Book = mongoose.model("Book", bookSchema);
