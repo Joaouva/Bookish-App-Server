@@ -81,15 +81,28 @@ router.post("/books/associate", (req, res) => {
 // route para todos os livros da NOSSA base de dados
 router.get("/books/db/allbooks", (req, res) => {
   Book.find().then((allBooksFromDb) => {
-    console.log(allBooksFromDb)
+    console.log(allBooksFromDb);
     res.json(allBooksFromDb);
   });
 });
 
 router.get("/books/db/allbookshops", (req, res) => {
-  User.find({ books: { $exists: true } }).then((allBooksshopsFromDb) => {
-    console.log(allBooksshopsFromDb);
-    res.json(allBooksshopsFromDb);
+  User.find().then((users) => {
+    const onlyUsersWithBooks = users.filter((user) => {
+      return user.books.length > 0;
+    });
+    res.json(onlyUsersWithBooks);
+  });
+});
+
+router.get("/books/db/allbookshops/:id", (req, res) => {
+  const { username, city, books } = req.body;
+  User.find({
+    username,
+    city,
+    books,
+  }).then((response) => {
+    res.json(UserDetails);
   });
 });
 
