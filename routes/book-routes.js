@@ -154,4 +154,10 @@ router.get("/books/editbook/:id", (req, res) => {
 		});
 });
 
+router.delete('/book/delete/:id', (req, res) => {
+	Book.findByIdAndRemove(req.params.id)
+	  .then(() => {
+		res.json({ message: `Project with id ${req.params.id} was deleted`})
+	  })
+  });
 module.exports = router;
