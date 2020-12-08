@@ -11,7 +11,7 @@ router.post("/signup", (req, res) => {
   // const name = req.body.user.name;
   // const isCompany = req.body.user.isCompany;
   // const city = req.body.user.city;
-  const { username, password, city, isCompany, name} = req.body.user;
+  const { username, password, city, isCompany, name } = req.body.user;
   // console.log('this is the request body', req.body )
   if (!username || !password) {
     res.status(400).json({ message: "Provide username and password" });
@@ -91,4 +91,26 @@ router.get("/loggedin", (req, res) => {
   res.json({});
 });
 
+
+
+
+
+
+
+router.get(
+  "/auth/google",
+  passport.authenticate("google", {
+    scope: [
+      "https://www.googleapis.com/auth/userinfo.profile",
+      "https://www.googleapis.com/auth/userinfo.email",
+    ],
+  })
+);
+router.get(
+  "/auth/google/callback",
+  passport.authenticate("google", {
+    successRedirect: `${process.env.CLIENT_HOSTNAME}/profile`,
+    failureRedirect: `${process.env.CLIENT_HOSTNAME}/login`,
+  })
+);
 module.exports = router;

@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema(
   {
     username: String,
+    googleId: String,
     name: String,
     about: String,
     password: String,
@@ -13,8 +14,9 @@ const userSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    books: [{ type: Schema.Types.ObjectId, ref: 'Book' }],
+    books: [{ type: Schema.Types.ObjectId, ref: "Book" }],
   },
+
   {
     timestamps: true,
   }
