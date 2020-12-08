@@ -131,4 +131,17 @@ router.get("/books/db/allbookshops/:id", (req, res) => {
     });
 });
 
+//UVA CHANGES
+
+
+router.put("/books/:isbn", (req, res) => {
+	const isbn = req.params.isbn;
+	const NewBookDetails = req.body;
+
+  Book.findOneAndUpdate(isbn, NewBookDetails).then(() => {
+		res.json({ message: `Project with ${req.params.isbn} is updated` });
+	});
+});
+
+
 module.exports = router;
