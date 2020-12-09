@@ -159,5 +159,16 @@ router.delete('/book/delete/:id', (req, res) => {
 	  .then(() => {
 		res.json({ message: `Project with id ${req.params.id} was deleted`})
 	  })
-  });
+	});
+	
+router.put("/profile/:id", (req, res) => {
+	const UserId = req.params.id;
+	const UserWithNewDetails = req.body;
+	console.log(UserWithNewDetails);
+	User.findByIdAndUpdate(UserId, UserWithNewDetails).then(() => {
+		res.json({ message: `User with ${req.params.id} is updated` });
+	});
+});
+
+
 module.exports = router;
