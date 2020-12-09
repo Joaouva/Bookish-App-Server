@@ -24,7 +24,7 @@ router.get("/books/:isbn", (req, res) => {
 				const author = book.authors[0].author[0].name[0];
 				const publisher = book.publisher[0];
 				const isbn = book.isbn13[0];
-				const image = book.image_url[0].replace("SX98", "SX500");
+				const image = book.image_url[0].replace("SX98", "SX5000");
 				const published = book.publication_year[0];
 				const language = book.language_code[0];
 
