@@ -91,12 +91,6 @@ router.get("/loggedin", (req, res) => {
   res.json({});
 });
 
-
-
-
-
-
-
 router.get(
   "/auth/google",
   passport.authenticate("google", {
@@ -109,7 +103,7 @@ router.get(
 router.get(
   "/auth/google/callback",
   passport.authenticate("google", {
-    successRedirect: `${process.env.CLIENT_HOSTNAME}/profile`,
+    successRedirect: `${process.env.CLIENT_HOSTNAME}/`,
     failureRedirect: `${process.env.CLIENT_HOSTNAME}/login`,
   })
 );

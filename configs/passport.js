@@ -45,15 +45,15 @@ passport.use(
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
       callbackURL: "/api/auth/google/callback",
     },
-    (accessToken, refreshToken, user, done) => {
-      User.findOne({ googleId: user.id })
+    (accessToken, refreshToken, profile, done) => {
+      User.findOne({ googleId: profile.id })
         .then((user) => {
           if (user) {
             // authenticate and persist in session
             done(null, user);
             return;
           }
-          User.create({ googleId: user.id, username: user.displayName })
+          User.create({ googleId: profile.id, username: profile.displayName })
             .then((newUser) => {
               done(null, newUser);
             })
